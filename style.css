@@ -1052,6 +1052,12 @@ input, select, textarea { font-family: var(--font-body); font-size: 15px; }
 }
 .footer-contact a { color: rgba(255,255,255,0.45); }
 .footer-contact a:hover { color: var(--teal); }
+.footer .logo-name { color: white; }
+.footer .logo-sub { color: rgba(255,255,255,0.5); }
+.footer-contact .phone-link { margin-top: 12px; }
+
+.contact-wa { margin-top: 8px; width: fit-content; }
+.footer-wa { margin-top: 16px; font-size: 13px; padding: 10px 20px; }
 
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.07);

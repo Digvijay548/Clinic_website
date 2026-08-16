@@ -1,0 +1,279 @@
+{
+  "site": {
+    "name": "Platinum dental smile",
+    "branch": "Branch - Keshav nagar, Pune",
+    "tagline": "Dental Clinic",
+    "footerTagline": "Creating healthy, confident smiles for over 15 years. Your trusted dental partner for life.",
+    "copyright": "© 2026 SmileCare Dental Clinic. All rights reserved.",
+    "credit": "Designed with ❤️ for healthy smiles",
+    "pageTitle": "Platinum dental smile Branch - Keshav nagar, Pune | Advanced Dental Care",
+    "pageDescription": "Platinum dental smile — trusted dental care in your city. Book appointments via WhatsApp."
+  },
+  "whatsapp": {
+    "number": "917030939995",
+    "display": "+91 7030939995",
+    "message": "Hello, I would like to book an appointment."
+  },
+  "contact": {
+    "email": "drpoojanerkar@gmail.com",
+    "address": "Office No. 2, First Floor, Manjari Rd, above More SuperMarket, near G Mall, Shiv Krishna Society, Manjari Budruk, Pune, Maharashtra 412307",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.0797240755733!2d73.9573381!3d18.525299099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c3a3740575bb%3A0x32f9663837c90607!2sPlatinum%20Smile%20Dental%20Clinic!5e0!3m2!1sen!2sin!4v1781609290476!5m2!1sen!2sin"
+  },
+  "hours": [
+    { "days": "Mon – Sat", "time": "10 AM – 2 PM & 5 PM – 9 PM" },
+    { "days": "Sunday", "time": "10:00 AM – 2:00 PM" }
+  ],
+  "nav": [
+    { "label": "About", "href": "#about" },
+    { "label": "Services", "href": "#services" },
+    { "label": "Why Us", "href": "#why-us" },
+    { "label": "Doctor", "href": "#doctor" },
+    { "label": "Reviews", "href": "#testimonials" },
+    { "label": "Experience", "href": "#experience" },
+    { "label": "Contact", "href": "#contact" },
+    { "label": "Book Now", "href": "#appointment", "cta": true }
+  ],
+  "hero": {
+    "badge": "Trusted by 5,000+ Happy Patients",
+    "titleLines": [
+      { "text": "Your Perfect" },
+      { "text": "Smile Starts", "accent": true },
+      { "text": "Right Here." }
+    ],
+    "subtitle": "Advanced dental care in a warm, comfortable environment. From routine cleanings to complete smile makeovers — we've got you covered.",
+    "btnPrimary": { "label": "Book on WhatsApp", "href": "#appointment" },
+    "btnSecondary": { "label": "View Services", "href": "#services" },
+    "trust": [
+      { "value": "15+", "label": "Years Experience" },
+      { "value": "5K+", "label": "Patients Served" },
+      { "value": "4.9", "label": "Average Rating" }
+    ],
+    "consultCard": {
+      "icon": "🦷",
+      "label": "Today’s Smile Check",
+      "title": "Dental Consultation",
+      "desc": "Quick oral health check, treatment guidance, and transparent cost discussion before you decide.",
+      "tags": ["Digital diagnosis", "Painless approach", "Same-day slots", "WhatsApp support"]
+    },
+    "badges": [
+      { "position": "top", "text": "Safe & Hygienic", "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#00B4D8\" stroke-width=\"2\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>" },
+      { "position": "bottom", "text": "Pain-Free Treatment", "icon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#F4A642\" stroke-width=\"2\"><path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\"/><polyline points=\"22 4 12 14.01 9 11.01\"/></svg>" }
+    ]
+  },
+  "about": {
+    "eyebrow": "About Us",
+    "title": "Where Every Smile Gets",
+    "titleAccent": "Expert Care",
+    "desc": [
+      "Platinum dental smile was founded with a single purpose: to make world-class dental care accessible, comfortable, and affordable. We combine cutting-edge technology with a gentle, patient-first approach so every visit feels reassuring — not anxious.",
+      "Located in the heart of your city, our clinic is designed to feel welcoming from the moment you walk in. Our team of specialists is committed to building long-term relationships with patients and their families."
+    ],
+    "features": [
+      "State-of-the-art digital X-rays & 3D imaging",
+      "ISO-certified sterilization protocols",
+      "Flexible appointment slots including evenings",
+      "Child-friendly environment & gentle care"
+    ],
+    "btnLabel": "Schedule a Visit",
+    "process": {
+      "headLabel": "Patient-first care",
+      "headTitle": "Simple. Safe. Comfortable.",
+      "steps": [
+        { "num": "01", "title": "Listen & Understand", "desc": "We first understand your pain, concern, fear, budget, and smile goals." },
+        { "num": "02", "title": "Diagnose Clearly", "desc": "We explain the issue in easy words with honest treatment options." },
+        { "num": "03", "title": "Treat Gently", "desc": "Modern techniques, strict hygiene, and a calm chair-side experience." },
+        { "num": "04", "title": "Follow Up", "desc": "After-care guidance and WhatsApp support for continued confidence." }
+      ]
+    },
+    "expBadge": { "value": "15+", "label": "Years of<br/>Excellence" }
+  },
+  "services": [
+    {
+      "name": "Root Canal Treatment",
+      "desc": "Painless, modern RCT that saves your natural tooth and eliminates infection permanently.",
+      "color": "#00B4D8",
+      "image": "images/rct.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z\"/><circle cx=\"12\" cy=\"9\" r=\"2.5\"/></svg>"
+    },
+    {
+      "name": "Dental Implants",
+      "desc": "Permanent, natural-looking tooth replacements using titanium implants with a lifetime guarantee.",
+      "color": "#F4A642",
+      "image": "images/implants.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"/></svg>"
+    },
+    {
+      "name": "Teeth Cleaning",
+      "desc": "Professional scaling and polishing to remove plaque, tartar, and surface stains effectively.",
+      "color": "#22C55E",
+      "image": "images/cleaning.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M4 12s1-4 8-4 8 4 8 4-1 4-8 4-8-4-8-4z\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/></svg>"
+    },
+    {
+      "name": "Dental Braces",
+      "desc": "Traditional metal, ceramic, and invisible aligners to straighten your teeth comfortably.",
+      "color": "#8B5CF6",
+      "image": "images/braces.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M4 4h16v4H4z\"/><path d=\"M8 8v12\"/><path d=\"M16 8v12\"/><path d=\"M4 20h16\"/></svg>"
+    },
+    {
+      "name": "Smile Designing",
+      "desc": "A complete aesthetic makeover — veneers, bonding, contouring — crafted around your unique face.",
+      "color": "#EC4899",
+      "image": "images/smile-design.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z\"/></svg>"
+    },
+    {
+      "name": "Tooth Extraction",
+      "desc": "Safe, comfortable extractions including wisdom teeth, with quick healing and minimal discomfort.",
+      "color": "#EF4444",
+      "image": "images/extraction.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6\"/><path d=\"M10 11v6M14 11v6\"/></svg>"
+    },
+    {
+      "name": "Teeth Whitening",
+      "desc": "Professional-grade whitening that delivers brilliant results up to 8 shades brighter in one session.",
+      "color": "#F59E0B",
+      "image": "images/whitening.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"5\"/><path d=\"M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83\"/></svg>"
+    },
+    {
+      "name": "Kids Dentistry",
+      "desc": "A fun, friendly space where children learn to love dental care from their very first visit.",
+      "color": "#06B6D4",
+      "image": "images/kids.jpg",
+      "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M9 12l2 2 4-4\"/><path d=\"M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.66 0 3.21.45 4.55 1.23\"/></svg>"
+    }
+  ],
+  "whyUs": [
+    { "num": "01", "title": "Pain-Free Technology", "desc": "Laser dentistry, digital impressions, and conscious sedation options ensure every procedure is as comfortable as possible." },
+    { "num": "02", "title": "Transparent Pricing", "desc": "No hidden costs, no surprise bills. We discuss every treatment plan and its cost upfront so you're always in control." },
+    { "num": "03", "title": "Expert Specialists", "desc": "Our team includes specialists in orthodontics, implantology, and cosmetic dentistry — all under one roof." },
+    { "num": "04", "title": "Flexible Timing", "desc": "Early morning, evening, and weekend slots available. Your dental care should fit your schedule, not the other way around." },
+    { "num": "05", "title": "Instant WhatsApp Booking", "desc": "Book, reschedule, or ask questions directly via WhatsApp. No hold music, no long waits — just fast, friendly service." },
+    { "num": "06", "title": "Sterilization Guarantee", "desc": "Autoclave sterilization, disposable protective gear, and hospital-grade disinfection after every patient, every time." }
+  ],
+  "doctor": {
+    "eyebrow": "Meet Your Doctor",
+    "name": "Dr. Pooja Nerkar",
+    "degree": "BDS",
+    "bio": [
+      "With over 15 years of clinical experience, Dr. Pooja Nerkar has transformed thousands of smiles across the city. A graduate from a premier dental institution, she brings a perfect blend of technical precision and artistic sensibility to every case.",
+      "Her approach is simple: listen first, treat second. She believes every patient deserves to understand their options before any procedure begins."
+    ],
+    "credentials": [
+      { "value": "15+", "label": "Years in Practice" },
+      { "value": "1000+", "label": "Implants Placed" },
+      { "value": "500+", "label": "Smiles Designed" }
+    ],
+    "btnLabel": "Book with Dr. Pooja Nerkar",
+    "expertise": {
+      "title": "Clinical Expertise You Can Trust",
+      "points": [
+        "Personalized treatment planning",
+        "Gentle chair-side communication",
+        "Clear explanation before procedure",
+        "Focus on long-term oral health"
+      ],
+      "note": "No unnecessary treatment. No confusing dental terms. Just honest care."
+    }
+  },
+  "testimonials": [
+    { "stars": 5, "text": "I had severe dental anxiety before visiting Platinum dental smile. Dr. Pooja Nerkar was so patient and calming throughout my root canal. Honestly didn't feel a thing. I wish I'd found this clinic years ago!", "name": "Rahul Sharma", "role": "Root Canal Patient", "avatar": "#00B4D8", "featured": false },
+    { "stars": 5, "text": "My smile designing journey at Platinum dental smile was absolutely life-changing. The doctor understood exactly what I wanted and delivered beyond my expectations. The results are stunning and so natural-looking!", "name": "Priya Mehta", "role": "Smile Makeover Patient", "avatar": "#F4A642", "featured": true },
+    { "stars": 5, "text": "Brought my 7-year-old who was absolutely terrified of dentists. The staff was amazing with him and made it a fun experience. He actually wants to come back! Highly recommend for families.", "name": "Anil Kumar", "role": "Kids Dentistry — Parent", "avatar": "#22C55E", "featured": false },
+    { "stars": 5, "text": "Got my teeth whitening done here and the results were incredible — 7 shades brighter in one session! The team is professional, the clinic is spotless, and booking via WhatsApp was super convenient.", "name": "Sneha Patel", "role": "Teeth Whitening Patient", "avatar": "#8B5CF6", "featured": false },
+    { "stars": 5, "text": "Had two dental implants placed. The procedure was painless and the recovery was smooth. Six months later and they feel completely natural. Best investment I've made in my health.", "name": "Meena Joshi", "role": "Dental Implant Patient", "avatar": "#EC4899", "featured": false },
+    { "stars": 5, "text": "My braces journey of 18 months at Platinum dental smile was seamless. Regular follow-ups, quick responses on WhatsApp, and the final result is a perfectly straight smile. Couldn't be happier!", "name": "Vikram Singh", "role": "Braces Patient", "avatar": "#EF4444", "featured": false }
+  ],
+  "experience": [
+    { "num": "01", "title": "Calm Appointment Flow", "desc": "From WhatsApp booking to treatment explanation, every step is kept simple, clear, and stress-free for patients.", "large": true },
+    { "num": "02", "title": "Transparent Pricing", "desc": "Patients get treatment options and cost clarity before starting any procedure." },
+    { "num": "03", "title": "Strict Hygiene", "desc": "Clean instruments, sanitized surfaces, and safe clinical protocols for every visit." },
+    { "num": "04", "title": "Family Friendly", "desc": "Gentle communication for kids, adults, and senior citizens." },
+    { "num": "05", "title": "After-care Support", "desc": "Clear post-treatment instructions and WhatsApp assistance when patients need help." }
+  ],
+  "appointment": {
+    "eyebrow": "Book Appointment",
+    "title": "Ready for a",
+    "titleAccent": "Better Smile?",
+    "desc": "Fill out the form and your details will be sent directly to us on WhatsApp. We'll confirm your slot within minutes.",
+    "features": [
+      "Instant WhatsApp confirmation",
+      "Reply within 15 minutes"
+    ],
+    "hoursTitle": "Clinic Hours",
+    "formTitle": "Book via WhatsApp",
+    "labels": {
+      "name": "Full Name *",
+      "phone": "Mobile Number *",
+      "date": "Preferred Date *",
+      "time": "Preferred Time *",
+      "treatment": "Treatment Required *",
+      "message": "Describe Your Problem (Optional)"
+    },
+    "placeholders": {
+      "name": "Your full name",
+      "phone": "+91 XXXXXXXXXX",
+      "time": "Select time",
+      "treatment": "Select treatment",
+      "message": "Any pain, swelling, or specific concerns..."
+    },
+    "submitLabel": "Send Appointment on WhatsApp",
+    "formNote": "By submitting, you agree to be contacted on WhatsApp.",
+    "timeOptions": ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"],
+    "treatmentOptions": ["Root Canal Treatment", "Dental Implant", "Teeth Cleaning", "Dental Braces", "Smile Designing", "Tooth Extraction", "Teeth Whitening", "Kids Dentistry", "General Checkup", "Other / Not Sure"]
+  },
+  "sections": {
+    "services": {
+      "eyebrow": "Our Services",
+      "title": "Everything Your Smile Needs",
+      "subtitle": "From prevention to transformation — comprehensive dental care under one roof."
+    },
+    "whyUs": {
+      "eyebrow": "Why Choose Us",
+      "title": "Platinum dental smile",
+      "titleAccent": "Difference",
+      "subtitle": "We don't just treat teeth. We build confidence and lasting relationships."
+    },
+    "testimonials": {
+      "eyebrow": "Patient Reviews",
+      "title": "What Our Patients Say"
+    },
+    "experience": {
+      "eyebrow": "Patient Experience",
+      "title": "A Premium",
+      "titleAccent": "Patient Experience",
+      "subtitle": "This section highlights the real reasons patients feel confident before visiting."
+    }
+  },
+  "contactSection": {
+    "eyebrow": "Find Us",
+    "title": "Platinum dental smile",
+    "titleBranch": "Branch - Keshav nagar, Pune",
+    "waButton": "Chat on WhatsApp"
+  },
+  "footer": {
+    "servicesLinks": [
+      { "label": "Root Canal", "href": "#services" },
+      { "label": "Dental Implants", "href": "#services" },
+      { "label": "Teeth Whitening", "href": "#services" },
+      { "label": "Smile Designing", "href": "#services" },
+      { "label": "Kids Dentistry", "href": "#services" },
+      { "label": "Dental Braces", "href": "#services" }
+    ],
+    "quickLinks": [
+      { "label": "About Us", "href": "#about" },
+      { "label": "Our Doctor", "href": "#doctor" },
+      { "label": "Patient Reviews", "href": "#testimonials" },
+      { "label": "Patient Experience", "href": "#experience" },
+      { "label": "Book Appointment", "href": "#appointment" },
+      { "label": "Contact Us", "href": "#contact" }
+    ],
+    "social": [
+      { "label": "Facebook", "href": "#", "icon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\"/></svg>" },
+      { "label": "Instagram", "href": "#", "icon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" y1=\"6.5\" x2=\"17.51\" y2=\"6.5\"/></svg>" },
+      { "label": "WhatsApp", "href": "whatsapp", "icon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z\"/></svg>" }
+    ]
+  }
+}
