@@ -79,6 +79,10 @@ function renderHero() {
   `;
 
   const cc = h.consultCard;
+  document.getElementById("heroBg").innerHTML = `
+    <img src="${esc(h.image)}" alt="${esc(h.imageAlt)}" />
+    <div class="hero-bg-overlay"></div>
+  `;
   document.getElementById("heroVisual").innerHTML = `
     <div class="hero-card-main">
       <div class="hero-consult-card">

@@ -34,6 +34,8 @@
     { "label": "Book Now", "href": "#appointment", "cta": true }
   ],
   "hero": {
+    "image": "images/candF.jpg",
+    "imageAlt": "Dentists with patient in a modern dental clinic",
     "badge": "Trusted by 5,000+ Happy Patients",
     "titleLines": [
       { "text": "Your Perfect" },
