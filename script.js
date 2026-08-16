@@ -10,10 +10,10 @@ function esc(str) {
   return String(str ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
-const TOOTH_SVG = `<svg width="SIZE" height="SIZE" viewBox="0 0 32 32" fill="none"><path d="M16 2C10 2 5 6.5 5 12c0 3.5 1.5 6.5 4 8.5L10 28c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2l1-7.5c2.5-2 4-5 4-8.5C27 6.5 22 2 16 2z" fill="#00B4D8"/><path d="M13 14v-4M16 14v-6M19 14v-4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+const LOGO_SVG = `<svg width="SIZE" height="SIZE" viewBox="0 0 32 32" fill="none"><path d="M16 3l2.4 7.2 7.2 1.8-7.2 1.8L16 21l-2.4-7.2-7.2-1.8 7.2-1.8z" fill="#00B4D8"/><path d="M25.5 19.5l1 3 3 1-3 1-1 3-1-3-3-1 3-1z" fill="#F4A642"/><path d="M8.5 17l.8 2.4 2.4.8-2.4.8L8.5 23.4l-.8-2.4-2.4-.8 2.4-.8z" fill="#00B4D8" opacity="0.75"/></svg>`;
 const WA_SVG = `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>`;
 
-function toothSvg(size) { return TOOTH_SVG.replace(/SIZE/g, size); }
+function logoSvg(size) { return LOGO_SVG.replace(/SIZE/g, size); }
 function waSvg(size) { return WA_SVG.replace(/SIZE/g, size); }
 
 function waHref() {
@@ -36,7 +36,7 @@ function applyMeta() {
 
 function renderHeader() {
   document.getElementById("logo").innerHTML = `
-    <div class="logo-icon">${toothSvg(32)}</div>
+    <div class="logo-icon">${logoSvg(32)}</div>
     <div class="logo-text">
       <span class="logo-name">${esc(D.site.name)}</span>
       <span class="logo-sub">${esc(D.site.branch)}</span>
@@ -168,6 +168,57 @@ function renderWhy() {
   `).join("");
 }
 
+/* ── RENDER: ACADEMIC ─────────────────────────────────── */
+function renderAcademic() {
+  const a = D.academic;
+  document.getElementById("academicHeader").innerHTML = headerHTML(a.eyebrow, a.title, a.titleAccent, a.subtitle);
+  document.getElementById("academicInner").innerHTML = `
+    <div class="academic-img-col">
+      <div class="academic-img-wrap">
+        <img src="${esc(a.image)}" alt="${esc(a.imageAlt)}" loading="lazy" />
+        <div class="academic-img-accent"></div>
+        <div class="academic-stat-badge">
+          <strong>${esc(a.stats[0].value)}</strong>
+          <span>${esc(a.stats[0].label)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="academic-text-col">
+      ${a.desc.map(d => `<p class="about-desc">${esc(d)}</p>`).join("")}
+      <div class="about-features">
+        ${a.features.map(f => `
+          <div class="about-feat">
+            <div class="feat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <span>${esc(f)}</span>
+          </div>
+        `).join("")}
+      </div>
+      <div class="academic-stats">
+        ${a.stats.map(st => `
+          <div class="academic-stat"><strong>${esc(st.value)}</strong><span>${esc(st.label)}</span></div>
+        `).join("")}
+      </div>
+      <a href="#appointment" class="btn btn-primary">${esc(a.btnLabel)}</a>
+    </div>
+  `;
+  document.getElementById("academicGrid").innerHTML = a.courses.map(c => `
+    <div class="academic-card">
+      <div class="academic-card-top">
+        <span class="academic-num">${esc(c.num)}</span>
+        <span class="academic-tag">${esc(c.level)}</span>
+      </div>
+      <h3>${esc(c.title)}</h3>
+      <p>${esc(c.desc)}</p>
+      <div class="academic-meta">
+        <span class="academic-duration">${esc(c.duration)}</span>
+        <a href="#appointment" class="academic-link">Enquire →</a>
+      </div>
+    </div>
+  `).join("");
+}
+
 /* ── RENDER: DOCTOR ───────────────────────────────────── */
 function renderDoctor() {
   const doc = D.doctor;
@@ -222,9 +273,12 @@ function renderExperience() {
   document.getElementById("expHeader").innerHTML = headerHTML(s.eyebrow, s.title, s.titleAccent, s.subtitle);
   document.getElementById("expGrid").innerHTML = D.experience.map(x => `
     <div class="experience-card${x.large ? " experience-large" : ""}">
-      <div class="experience-number">${esc(x.num)}</div>
-      <h3>${esc(x.title)}</h3>
-      <p>${esc(x.desc)}</p>
+      ${x.image ? `<div class="experience-img${x.large ? " experience-img-large" : ""}"><img src="${x.image}" alt="${esc(x.title)}"></div>` : ""}
+      <div class="experience-body">
+        <div class="experience-number">${esc(x.num)}</div>
+        <h3>${esc(x.title)}</h3>
+        <p>${esc(x.desc)}</p>
+      </div>
     </div>
   `).join("");
 }
@@ -371,7 +425,7 @@ function renderFooter() {
   document.getElementById("footerInner").innerHTML = `
     <div class="footer-brand">
       <a href="#" class="logo logo-light">
-        <div class="logo-icon">${toothSvg(28)}</div>
+        <div class="logo-icon">${logoSvg(28)}</div>
         <div class="logo-text">
           <span class="logo-name">${esc(s.name)}</span>
           <span class="logo-sub">${esc(s.tagline)}</span>
@@ -427,6 +481,7 @@ function renderAll() {
   renderAbout();
   renderServices();
   renderWhy();
+  renderAcademic();
   renderDoctor();
   renderTestimonials();
   renderExperience();
@@ -491,7 +546,7 @@ function initBehaviours() {
 
   // ── SCROLL REVEAL ──
   const reveals = document.querySelectorAll(
-    ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item"
+    ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item, .academic-card, .academic-stat"
   );
   reveals.forEach(el => el.classList.add("reveal"));
 
@@ -573,7 +628,7 @@ function initBehaviours() {
   }, { threshold: 0.5 });
   numbers.forEach(el => counterObserver.observe(el));
 
-  console.log(`%c🦷 ${D.site.name} Website Loaded`, "color:#00B4D8;font-size:14px;font-weight:bold");
+  console.log(`%c✨ ${D.site.name} Website Loaded`, "color:#00B4D8;font-size:14px;font-weight:bold");
   console.log("%cEdit data.json to update all clinic details.", "color:#6B7E96;font-size:12px");
 }
 
@@ -598,16 +653,16 @@ function bookOnWhatsApp() {
   });
 
   const waMessage = [
-    `🦷 *Appointment Request — ${D.site.name}*`,
+    `✨ *Appointment Request — ${D.site.name}*`,
     ``,
-    `👤 *Patient Name:* ${name}`,
+    `👤 *Name:* ${name}`,
     `📱 *Mobile Number:* ${phone}`,
     `📅 *Preferred Date:* ${displayDate}`,
     `🕐 *Preferred Time:* ${time}`,
-    `🩺 *Treatment Required:* ${treatment}`,
-    message ? `💬 *Message / Problem:* ${message}` : ``,
+    `💆♀️ *Service / Course Required:* ${treatment}`,
+    message ? `💬 *Message / Concern:* ${message}` : ``,
     ``,
-    `_Sent from the clinic website booking form._`
+    `_Sent from the Wenni website booking form._`
   ].filter(line => line !== undefined).join("\n");
 
   const waURL = `https://wa.me/${D.whatsapp.number}?text=${encodeURIComponent(waMessage)}`;
