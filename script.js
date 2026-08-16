@@ -487,7 +487,7 @@ function initBehaviours() {
 
   // ── SCROLL REVEAL ──
   const reveals = document.querySelectorAll(
-    ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item, .about-exp-badge"
+    ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item"
   );
   reveals.forEach(el => el.classList.add("reveal"));
 

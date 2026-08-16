@@ -480,21 +480,23 @@ input, select, textarea { font-family: var(--font-body); font-size: 15px; }
   right: 0;
   background: var(--navy);
   color: white;
-  padding: 20px 24px;
-  border-radius: 20px;
+  padding: 24px 30px;
+  border-radius: 22px;
   text-align: center;
   box-shadow: var(--shadow-md);
+  z-index: 2;
+  border: 1px solid rgba(0,180,216,0.25);
 }
 .about-exp-badge strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 36px;
+  font-size: 42px;
   color: var(--teal);
   line-height: 1;
 }
 .about-exp-badge span {
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: 13px;
+  opacity: 0.75;
   line-height: 1.4;
 }
 
@@ -1352,12 +1354,26 @@ input, select, textarea { font-family: var(--font-body); font-size: 15px; }
   position: relative;
 }
 .doctor-expertise-card li::before {
-  content: "•";
-  color: var(--gold);
+  content: "";
   position: absolute;
-  left: 4px;
-  font-size: 22px;
-  top: -5px;
+  left: 2px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: var(--teal);
+  border-radius: 50%;
+  display: block;
+}
+.doctor-expertise-card li::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 7px;
+  width: 8px;
+  height: 5px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg);
 }
 .expertise-note {
   background: rgba(244,166,66,0.12);
