@@ -45,23 +45,29 @@ function renderHeader() {
   document.getElementById("navList").innerHTML = D.nav.map(n =>
     n.cta
       ? `<li><a href="${esc(n.href)}" class="nav-cta-btn">${esc(n.label)}</a></li>`
-      : `<li><a href="${esc(n.href)}" class="nav-link">${esc(n.label)}</a></li>`
+      : `<li><a href="${esc(n.href)}" class="nav-link">${esc(n.label)}<span class="nav-link-bar"></span></a></li>`
   ).join("");
 }
 
 /* ── RENDER: HERO ─────────────────────────────────────── */
 function renderHero() {
   const h = D.hero;
-  const title = h.titleLines.map(l =>
-    l.accent ? `<span class="hero-title-accent">${esc(l.text)}</span>` : esc(l.text)
-  ).join("<br/>");
+  const titleLines = h.titleLines;
+
+  // Build title — plain lines rendered immediately, accent line gets typewriter span
+  const titleHTML = titleLines.map((l, i) => {
+    if (l.accent) {
+      return `<span class="hero-title-accent" id="heroTypewriter">${esc(l.text)}</span>`;
+    }
+    return esc(l.text);
+  }).join("<br/>");
 
   document.getElementById("heroContent").innerHTML = `
     <div class="hero-badge">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#F4A642"/></svg>
       ${esc(h.badge)}
     </div>
-    <h1 class="hero-title">${title}</h1>
+    <h1 class="hero-title">${titleHTML}</h1>
     <p class="hero-subtitle">${esc(h.subtitle)}</p>
     <div class="hero-actions">
       <a href="${esc(h.btnPrimary.href)}" class="btn btn-primary btn-lg">
@@ -144,8 +150,8 @@ function renderAbout() {
 function renderServices() {
   const s = D.sections.services;
   document.getElementById("servicesHeader").innerHTML = headerHTML(s.eyebrow, s.title, s.titleAccent, s.subtitle);
-  document.getElementById("servicesGrid").innerHTML = D.services.map(service => `
-    <div class="service-card">
+  document.getElementById("servicesGrid").innerHTML = D.services.map((service, i) => `
+    <div class="service-card" data-tilt style="--card-delay:${i * 60}ms">
       <div class="service-img"><img src="${esc(service.image)}" alt="${esc(service.name)}" loading="lazy" /></div>
       <div class="service-icon" style="--icon-color:${esc(service.color)}">${service.icon}</div>
       <h3 class="service-name">${esc(service.name)}</h3>
@@ -232,7 +238,6 @@ function renderExperience() {
 /* ── RENDER: APPOINTMENT ──────────────────────────────── */
 function renderAppointment() {
   const a = D.appointment;
-  const hoursText = D.hours.map(h => `Mon–Sat: ${esc(h.time)}`).join("<br/>").replace("Mon–Sat:", "").trim();
 
   document.getElementById("apptInner").innerHTML = `
     <div class="appt-info">
@@ -304,6 +309,7 @@ function renderAppointment() {
 /* ── RENDER: CONTACT ──────────────────────────────────── */
 function renderContact() {
   const c = D.contactSection;
+  const lbl = c.labels;   // ← now from data.json, no more hardcoding
   const w = D.whatsapp;
   const contactHours = D.hours.map(h => `${esc(h.days)}: ${esc(h.time)}`).join("<br/>");
 
@@ -319,7 +325,7 @@ function renderContact() {
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div>
-          <h4>Address</h4>
+          <h4>${esc(lbl.address)}</h4>
           <p>${esc(D.contact.address)}</p>
         </div>
       </div>
@@ -328,7 +334,7 @@ function renderContact() {
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
         <div>
-          <h4>Phone / WhatsApp</h4>
+          <h4>${esc(lbl.phone)}</h4>
           <p><a href="tel:${esc(w.display)}">${esc(w.display)}</a></p>
         </div>
       </div>
@@ -337,7 +343,7 @@ function renderContact() {
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
         <div>
-          <h4>Email</h4>
+          <h4>${esc(lbl.email)}</h4>
           <p><a href="mailto:${esc(D.contact.email)}">${esc(D.contact.email)}</a></p>
         </div>
       </div>
@@ -346,17 +352,14 @@ function renderContact() {
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div>
-          <h4>Clinic Hours</h4>
+          <h4>${esc(lbl.hours)}</h4>
           <p>${contactHours}</p>
         </div>
       </div>
       <a href="${waHref()}" target="_blank" class="btn btn-whatsapp contact-wa">${waSvg(18)} ${esc(c.waButton)}</a>
     </div>
     <div class="map-wrap">
-      <div class="map-placeholder">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="30" fill="#E8F4FD"/><path d="M30 10a14 14 0 0 1 14 14c0 10-14 26-14 26S16 34 16 24A14 14 0 0 1 30 10z" fill="#00B4D8" opacity="0.6"/><circle cx="30" cy="24" r="5" fill="white"/></svg>
-        <iframe src="${esc(D.contact.mapEmbed)}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+      <iframe src="${esc(D.contact.mapEmbed)}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   `;
 }
@@ -381,6 +384,10 @@ function renderFooter() {
       <div class="footer-social">
         ${f.social.map(soc => {
           const href = soc.href === "whatsapp" ? wa : soc.href;
+          // Issue 7 fix: placeholder social links get aria-disabled + title + no jump
+          if (soc.placeholder) {
+            return `<a href="javascript:void(0)" aria-label="${esc(soc.label)} (coming soon)" title="${esc(soc.label)} — link coming soon" class="social-link social-placeholder" role="button">${soc.icon}</a>`;
+          }
           return `<a href="${esc(href)}" aria-label="${esc(soc.label)}" class="social-link"${soc.href === "whatsapp" ? ' target="_blank"' : ""}>${soc.icon}</a>`;
         }).join("")}
       </div>
@@ -443,13 +450,23 @@ function renderAll() {
 function initBehaviours() {
   const header = document.getElementById("header");
 
-  // ── HEADER SCROLL EFFECT ──
+  /* ── SCROLL PROGRESS BAR ── */
+  const progressBar = document.getElementById("scrollProgress");
+  window.addEventListener("scroll", () => {
+    if (progressBar) {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = `${Math.min(100, (scrollTop / docHeight) * 100)}%`;
+    }
+  }, { passive: true });
+
+  /* ── HEADER SCROLL EFFECT ── */
   window.addEventListener("scroll", () => {
     if (window.scrollY > 20) header.classList.add("scrolled");
     else header.classList.remove("scrolled");
   }, { passive: true });
 
-  // ── HAMBURGER MENU ──
+  /* ── HAMBURGER MENU ── */
   const hamburger = document.getElementById("hamburger");
   const nav = document.getElementById("nav");
 
@@ -475,7 +492,7 @@ function initBehaviours() {
     }
   });
 
-  // ── ACTIVE NAV LINK ON SCROLL ──
+  /* ── ACTIVE NAV LINK ON SCROLL ── */
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-link");
 
@@ -489,23 +506,40 @@ function initBehaviours() {
   }, { rootMargin: "-40% 0px -55% 0px" });
   sections.forEach(sec => sectionObserver.observe(sec));
 
-  // ── SCROLL REVEAL ──
+  /* ── SCROLL REVEAL with pre-assigned stagger index (BUG FIX: was O(n) indexOf) ── */
   const reveals = document.querySelectorAll(
     ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item"
   );
-  reveals.forEach(el => el.classList.add("reveal"));
+  reveals.forEach((el, idx) => {
+    el.classList.add("reveal");
+    el.dataset.revealIndex = idx % 6; // pre-assign stagger group 0–5
+  });
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add("visible"), 60 * (Array.from(reveals).indexOf(entry.target) % 6));
+        const delay = parseInt(entry.target.dataset.revealIndex || 0) * 80;
+        setTimeout(() => entry.target.classList.add("visible"), delay);
         revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => revealObserver.observe(el));
 
-  // ── SET MIN DATE FOR APPOINTMENT FORM ──
+  /* ── SECTION HEADER ANIMATE IN ── */
+  const sectionHeaders = document.querySelectorAll(".section-header, .about-text-col, .appt-info, #contactHeader");
+  sectionHeaders.forEach(el => el.classList.add("reveal-header"));
+  const headerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("header-visible");
+        headerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  sectionHeaders.forEach(el => headerObserver.observe(el));
+
+  /* ── SET MIN DATE FOR APPOINTMENT FORM ── */
   const dateInput = document.getElementById("preferredDate");
   if (dateInput) {
     const today = new Date();
@@ -515,7 +549,7 @@ function initBehaviours() {
     dateInput.min = `${yyyy}-${mm}-${dd}`;
   }
 
-  // ── SMOOTH SCROLL FOR ANCHOR LINKS ──
+  /* ── SMOOTH SCROLL FOR ANCHOR LINKS ── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", (e) => {
       const targetId = anchor.getAttribute("href");
@@ -530,7 +564,7 @@ function initBehaviours() {
     });
   });
 
-  // ── HIDE/SHOW FLOATING WA BUTTON ──
+  /* ── HIDE/SHOW FLOATING WA BUTTON ── */
   const waFloat = document.getElementById("whatsappFloat");
   let lastScrollY = 0;
   window.addEventListener("scroll", () => {
@@ -546,7 +580,7 @@ function initBehaviours() {
     lastScrollY = current;
   }, { passive: true });
 
-  // ── COUNTER ANIMATION ──
+  /* ── COUNTER ANIMATION ── */
   function animateCounter(el, target, suffix = "") {
     let start = 0;
     const duration = 1800;
@@ -573,6 +607,66 @@ function initBehaviours() {
   }, { threshold: 0.5 });
   numbers.forEach(el => counterObserver.observe(el));
 
+  /* ── CARD TILT EFFECT ── */
+  document.querySelectorAll("[data-tilt]").forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-8px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+
+  /* ── TYPEWRITER ON HERO ACCENT ── */
+  const typewriterEl = document.getElementById("heroTypewriter");
+  if (typewriterEl) {
+    const fullText = typewriterEl.textContent;
+    typewriterEl.textContent = "";
+    typewriterEl.style.borderRight = "3px solid #00B4D8";
+    let i = 0;
+    const type = () => {
+      if (i <= fullText.length) {
+        typewriterEl.textContent = fullText.slice(0, i);
+        i++;
+        setTimeout(type, 80);
+      } else {
+        // Blink cursor then remove
+        setTimeout(() => { typewriterEl.style.borderRight = "none"; }, 1200);
+      }
+    };
+    setTimeout(type, 700);
+  }
+
+  /* ── PROCESS STEP STAGGER ON ABOUT ── */
+  const processSteps = document.querySelectorAll(".process-step");
+  processSteps.forEach((el, i) => {
+    el.style.opacity = "0";
+    el.style.transform = "translateX(-20px)";
+    el.style.transition = `opacity 0.5s ease ${i * 120}ms, transform 0.5s ease ${i * 120}ms`;
+  });
+  const processObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll(".process-step").forEach(step => {
+          step.style.opacity = "1";
+          step.style.transform = "translateX(0)";
+        });
+        processObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const processCard = document.querySelector(".care-process-card");
+  if (processCard) processObserver.observe(processCard);
+
+  /* ── FORM INPUT RIPPLE FOCUS ── */
+  document.querySelectorAll(".form-group input, .form-group select, .form-group textarea").forEach(input => {
+    input.addEventListener("focus", () => input.parentElement.classList.add("field-focused"));
+    input.addEventListener("blur", () => input.parentElement.classList.remove("field-focused"));
+  });
+
   console.log(`%c🦷 ${D.site.name} Website Loaded`, "color:#00B4D8;font-size:14px;font-weight:bold");
   console.log("%cEdit data.json to update all clinic details.", "color:#6B7E96;font-size:12px");
 }
@@ -597,6 +691,7 @@ function bookOnWhatsApp() {
     weekday: "long", year: "numeric", month: "long", day: "numeric"
   });
 
+  // BUG FIX: use filter(Boolean) to remove empty strings (not just undefined)
   const waMessage = [
     `🦷 *Appointment Request — ${D.site.name}*`,
     ``,
@@ -608,7 +703,7 @@ function bookOnWhatsApp() {
     message ? `💬 *Message / Problem:* ${message}` : ``,
     ``,
     `_Sent from the clinic website booking form._`
-  ].filter(line => line !== undefined).join("\n");
+  ].filter(Boolean).join("\n");
 
   const waURL = `https://wa.me/${D.whatsapp.number}?text=${encodeURIComponent(waMessage)}`;
 
