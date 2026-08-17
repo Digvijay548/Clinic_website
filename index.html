@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="pageTitle">Platinum dental smile</title>
-  <meta name="description" id="pageDesc" content="Platinum dental smile — trusted dental care in your city. Book appointments via WhatsApp." />
+  <title id="pageTitle">Wenni Skin Care Academy</title>
+  <meta name="description" id="pageDesc" content="Wenni Skin Care Academy — advanced skin treatments and certified cosmetology courses in Pune." />
+  <meta property="og:title" content="Wenni Skin Care Academy | Skin Treatments & Cosmetology Courses" />
+  <meta property="og:description" content="Expert skin treatments, signature facials, and certified cosmetology training in Keshav Nagar, Pune." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
 </head>
 <body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
   <header id="header">
@@ -30,6 +35,10 @@
   <section class="hero" id="home">
     <div class="hero-bg-img" id="heroBg"></div>
     <div class="hero-bg-shape"></div>
+    <div class="hero-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
     <div class="container hero-inner">
       <div class="hero-content" id="heroContent"></div>
       <div class="hero-visual" id="heroVisual"></div>
@@ -62,37 +71,25 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════ ACADEMIC ═══════════════════════════ -->
-  <section class="section" id="academic">
-    <div class="container">
-      <div class="section-header" id="academicHeader"></div>
-      <div class="academic-inner" id="academicInner"></div>
-      <div class="academic-grid" id="academicGrid"></div>
-    </div>
+  <!-- ═══════════════════════════ ACADEMY ═══════════════════════════ -->
+  <section class="section section-navy" id="academic">
+    <div class="container" id="academicInner"></div>
   </section>
 
-  <!-- ═══════════════════════════ DOCTOR ═══════════════════════════ -->
-  <section class="section section-navy" id="doctor">
+  <!-- ═══════════════════════════ FOUNDER ═══════════════════════════ -->
+  <section class="section section-ice" id="doctor">
     <div class="container doctor-inner" id="doctorInner"></div>
   </section>
 
   <!-- ═══════════════════════════ TESTIMONIALS ═══════════════════════════ -->
-  <section class="section section-ice" id="testimonials">
+  <section class="section" id="testimonials">
     <div class="container">
       <div class="section-header" id="testiHeader"></div>
       <div class="testimonials-grid" id="testiGrid"></div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════ EXPERIENCE ═══════════════════════════ -->
-  <section class="section" id="experience">
-    <div class="container">
-      <div class="section-header" id="expHeader"></div>
-      <div class="experience-grid" id="expGrid"></div>
-    </div>
-  </section>
-
-    <!-- ═══════════════════════════ APPOINTMENT ═══════════════════════════ -->
+  <!-- ═══════════════════════════ APPOINTMENT ═══════════════════════════ -->
   <section class="section section-ice" id="appointment">
     <div class="container appt-inner" id="apptInner"></div>
   </section>
@@ -115,6 +112,12 @@
 
   <!-- Floating WhatsApp Button -->
   <a href="#" target="_blank" class="whatsapp-float" id="whatsappFloat" aria-label="Chat on WhatsApp"></a>
+
+  <noscript>
+    <div style="background:#1a0a2e;color:#fff;padding:24px;text-align:center;font-family:sans-serif;">
+      Please enable JavaScript to view this website.
+    </div>
+  </noscript>
 
   <script src="script.js"></script>
 </body>

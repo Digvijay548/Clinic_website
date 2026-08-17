@@ -1,20 +1,32 @@
 /* ═══════════════════════════════════════════════════════
-   Platinum Dental Smile — script.js (data-driven)
-   All content is loaded from data.json.
+   Wenni Skin Care Academy — script.js (data-driven)
+   All content loaded from data.json.
    ═══════════════════════════════════════════════════════ */
 
 let D = null;
 
 /* ── HELPERS ──────────────────────────────────────────── */
 function esc(str) {
-  return String(str ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  return String(str ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 }
 
-const LOGO_SVG = `<svg width="SIZE" height="SIZE" viewBox="0 0 32 32" fill="none"><path d="M16 3l2.4 7.2 7.2 1.8-7.2 1.8L16 21l-2.4-7.2-7.2-1.8 7.2-1.8z" fill="#00B4D8"/><path d="M25.5 19.5l1 3 3 1-3 1-1 3-1-3-3-1 3-1z" fill="#F4A642"/><path d="M8.5 17l.8 2.4 2.4.8-2.4.8L8.5 23.4l-.8-2.4-2.4-.8 2.4-.8z" fill="#00B4D8" opacity="0.75"/></svg>`;
+/* Sparkle / leaf SVG for brand logo */
+const BRAND_SVG = `<svg width="SIZE" height="SIZE" viewBox="0 0 32 32" fill="none">
+  <circle cx="16" cy="16" r="14" fill="url(#brandGrad)"/>
+  <path d="M16 8c0 0-6 4-6 9a6 6 0 0 0 12 0c0-5-6-9-6-9z" fill="white" opacity="0.9"/>
+  <path d="M16 10v10M13 14l3-4 3 4" stroke="url(#brandGrad)" stroke-width="1.5" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+  </defs>
+</svg>`;
+
 const WA_SVG = `<svg width="SIZE" height="SIZE" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>`;
 
-function logoSvg(size) { return LOGO_SVG.replace(/SIZE/g, size); }
-function waSvg(size) { return WA_SVG.replace(/SIZE/g, size); }
+function brandSvg(size) { return BRAND_SVG.replace(/SIZE/g, size); }
+function waSvg(size)    { return WA_SVG.replace(/SIZE/g, size); }
 
 function waHref() {
   return `https://wa.me/${D.whatsapp.number}?text=${encodeURIComponent(D.whatsapp.message)}`;
@@ -36,32 +48,34 @@ function applyMeta() {
 
 function renderHeader() {
   document.getElementById("logo").innerHTML = `
-    <div class="logo-icon">${logoSvg(32)}</div>
+    <div class="logo-icon">${brandSvg(34)}</div>
     <div class="logo-text">
       <span class="logo-name">${esc(D.site.name)}</span>
       <span class="logo-sub">${esc(D.site.branch)}</span>
     </div>
   `;
-  document.getElementById("navList").innerHTML = D.nav.map(n =>
+  const isAcademyEnabled = D.academic && D.academic.enabled !== false;
+  const filteredNav = D.nav.filter(n => isAcademyEnabled || n.href !== "#academic");
+  document.getElementById("navList").innerHTML = filteredNav.map(n =>
     n.cta
       ? `<li><a href="${esc(n.href)}" class="nav-cta-btn">${esc(n.label)}</a></li>`
-      : `<li><a href="${esc(n.href)}" class="nav-link">${esc(n.label)}</a></li>`
+      : `<li><a href="${esc(n.href)}" class="nav-link">${esc(n.label)}<span class="nav-link-bar"></span></a></li>`
   ).join("");
 }
 
 /* ── RENDER: HERO ─────────────────────────────────────── */
 function renderHero() {
   const h = D.hero;
-  const title = h.titleLines.map(l =>
-    l.accent ? `<span class="hero-title-accent">${esc(l.text)}</span>` : esc(l.text)
+  const titleHTML = h.titleLines.map(l =>
+    l.accent ? `<span class="hero-title-accent" id="heroTypewriter">${esc(l.text)}</span>` : esc(l.text)
   ).join("<br/>");
 
   document.getElementById("heroContent").innerHTML = `
     <div class="hero-badge">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#F4A642"/></svg>
+      <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="7" fill="#F472B6"/></svg>
       ${esc(h.badge)}
     </div>
-    <h1 class="hero-title">${title}</h1>
+    <h1 class="hero-title">${titleHTML}</h1>
     <p class="hero-subtitle">${esc(h.subtitle)}</p>
     <div class="hero-actions">
       <a href="${esc(h.btnPrimary.href)}" class="btn btn-primary btn-lg">
@@ -129,7 +143,7 @@ function renderAbout() {
         ${a.features.map(f => `
           <div class="about-feat">
             <div class="feat-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <span>${esc(f)}</span>
           </div>
@@ -144,8 +158,8 @@ function renderAbout() {
 function renderServices() {
   const s = D.sections.services;
   document.getElementById("servicesHeader").innerHTML = headerHTML(s.eyebrow, s.title, s.titleAccent, s.subtitle);
-  document.getElementById("servicesGrid").innerHTML = D.services.map(service => `
-    <div class="service-card">
+  document.getElementById("servicesGrid").innerHTML = D.services.map((service, i) => `
+    <div class="service-card" data-tilt>
       <div class="service-img"><img src="${esc(service.image)}" alt="${esc(service.name)}" loading="lazy" /></div>
       <div class="service-icon" style="--icon-color:${esc(service.color)}">${service.icon}</div>
       <h3 class="service-name">${esc(service.name)}</h3>
@@ -168,64 +182,74 @@ function renderWhy() {
   `).join("");
 }
 
-/* ── RENDER: ACADEMIC ─────────────────────────────────── */
-function renderAcademic() {
-  const a = D.academic;
-  document.getElementById("academicHeader").innerHTML = headerHTML(a.eyebrow, a.title, a.titleAccent, a.subtitle);
+/* ── RENDER: ACADEMY (unique to skincare branch) ──────── */
+function renderAcademy() {
+  const ac = D.academic;
+  const secEl = document.getElementById("academic");
+  if (!ac || ac.enabled === false) {
+    if (secEl) secEl.style.display = "none";
+    return;
+  } else {
+    if (secEl) secEl.style.display = "";
+  }
   document.getElementById("academicInner").innerHTML = `
-    <div class="academic-img-col">
-      <div class="academic-img-wrap">
-        <img src="${esc(a.image)}" alt="${esc(a.imageAlt)}" loading="lazy" />
-        <div class="academic-img-accent"></div>
-        <div class="academic-stat-badge">
-          <strong>${esc(a.stats[0].value)}</strong>
-          <span>${esc(a.stats[0].label)}</span>
-        </div>
-      </div>
+    <div class="academy-header">
+      <p class="section-eyebrow eyebrow-light">${esc(ac.eyebrow)}</p>
+      <h2 class="section-title title-light">${esc(ac.title)} <span class="accent">${esc(ac.titleAccent)}</span></h2>
+      <p class="section-subtitle" style="color:rgba(255,255,255,0.6);max-width:600px;margin:0 auto 60px">${esc(ac.subtitle)}</p>
     </div>
-    <div class="academic-text-col">
-      ${a.desc.map(d => `<p class="about-desc">${esc(d)}</p>`).join("")}
-      <div class="about-features">
-        ${a.features.map(f => `
-          <div class="about-feat">
-            <div class="feat-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+
+    <div class="academy-inner">
+      <div class="academy-text-col">
+        ${ac.desc.map(d => `<p class="academy-desc">${esc(d)}</p>`).join("")}
+
+        <div class="academy-stats">
+          ${ac.stats.map(s => `
+            <div class="academy-stat">
+              <strong>${esc(s.value)}</strong>
+              <span>${esc(s.label)}</span>
             </div>
-            <span>${esc(f)}</span>
+          `).join("")}
+        </div>
+
+        <div class="academy-features">
+          ${ac.features.map(f => `
+            <div class="academy-feat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              ${esc(f)}
+            </div>
+          `).join("")}
+        </div>
+        <a href="#appointment" class="btn btn-gold">${esc(ac.btnLabel)}</a>
+      </div>
+
+      <div class="courses-grid">
+        ${ac.courses.map(c => `
+          <div class="course-card">
+            <div class="course-num">${esc(c.num)}</div>
+            <h4>${esc(c.title)}</h4>
+            <p>${esc(c.desc)}</p>
+            <div class="course-meta">
+              <span class="course-duration">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ${esc(c.duration)}
+              </span>
+              <span class="course-level level-${esc(c.level.toLowerCase())}">${esc(c.level)}</span>
+            </div>
           </div>
         `).join("")}
       </div>
-      <div class="academic-stats">
-        ${a.stats.map(st => `
-          <div class="academic-stat"><strong>${esc(st.value)}</strong><span>${esc(st.label)}</span></div>
-        `).join("")}
-      </div>
-      <a href="#appointment" class="btn btn-primary">${esc(a.btnLabel)}</a>
     </div>
   `;
-  document.getElementById("academicGrid").innerHTML = a.courses.map(c => `
-    <div class="academic-card">
-      <div class="academic-card-top">
-        <span class="academic-num">${esc(c.num)}</span>
-        <span class="academic-tag">${esc(c.level)}</span>
-      </div>
-      <h3>${esc(c.title)}</h3>
-      <p>${esc(c.desc)}</p>
-      <div class="academic-meta">
-        <span class="academic-duration">${esc(c.duration)}</span>
-        <a href="#appointment" class="academic-link">Enquire →</a>
-      </div>
-    </div>
-  `).join("");
 }
 
-/* ── RENDER: DOCTOR ───────────────────────────────────── */
+/* ── RENDER: FOUNDER / DOCTOR ─────────────────────────── */
 function renderDoctor() {
   const doc = D.doctor;
   document.getElementById("doctorInner").innerHTML = `
     <div class="doctor-img-col">
       <div class="doctor-expertise-card">
-        <div class="expertise-icon">✓</div>
+        <div class="expertise-icon">✦</div>
         <h3>${esc(doc.expertise.title)}</h3>
         <ul>
           ${doc.expertise.points.map(p => `<li>${esc(p)}</li>`).join("")}
@@ -234,8 +258,8 @@ function renderDoctor() {
       </div>
     </div>
     <div class="doctor-text-col">
-      <p class="section-eyebrow eyebrow-light">${esc(doc.eyebrow)}</p>
-      <h2 class="section-title title-light">${esc(doc.name)}</h2>
+      <p class="section-eyebrow">${esc(doc.eyebrow)}</p>
+      <h2 class="section-title">${esc(doc.name)}</h2>
       <p class="doctor-degree">${esc(doc.degree)}</p>
       ${doc.bio.map(b => `<p class="doctor-bio">${esc(b)}</p>`).join("")}
       <div class="doctor-credentials">
@@ -243,7 +267,7 @@ function renderDoctor() {
           <div class="cred-item"><strong>${esc(c.value)}</strong><span>${esc(c.label)}</span></div>
         `).join("")}
       </div>
-      <a href="#appointment" class="btn btn-gold">${esc(doc.btnLabel)}</a>
+      <a href="#appointment" class="btn btn-primary">${esc(doc.btnLabel)}</a>
     </div>
   `;
 }
@@ -267,27 +291,9 @@ function renderTestimonials() {
   `).join("");
 }
 
-/* ── RENDER: EXPERIENCE ───────────────────────────────── */
-function renderExperience() {
-  const s = D.sections.experience;
-  document.getElementById("expHeader").innerHTML = headerHTML(s.eyebrow, s.title, s.titleAccent, s.subtitle);
-  document.getElementById("expGrid").innerHTML = D.experience.map(x => `
-    <div class="experience-card${x.large ? " experience-large" : ""}">
-      ${x.image ? `<div class="experience-img${x.large ? " experience-img-large" : ""}"><img src="${x.image}" alt="${esc(x.title)}"></div>` : ""}
-      <div class="experience-body">
-        <div class="experience-number">${esc(x.num)}</div>
-        <h3>${esc(x.title)}</h3>
-        <p>${esc(x.desc)}</p>
-      </div>
-    </div>
-  `).join("");
-}
-
 /* ── RENDER: APPOINTMENT ──────────────────────────────── */
 function renderAppointment() {
   const a = D.appointment;
-  const hoursText = D.hours.map(h => `Mon–Sat: ${esc(h.time)}`).join("<br/>").replace("Mon–Sat:", "").trim();
-
   document.getElementById("apptInner").innerHTML = `
     <div class="appt-info">
       <p class="section-eyebrow">${esc(a.eyebrow)}</p>
@@ -296,7 +302,7 @@ function renderAppointment() {
       <div class="appt-features">
         ${a.features.map(f => `
           <div class="appt-feat">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             ${esc(f)}
           </div>
         `).join("")}
@@ -363,14 +369,14 @@ function renderContact() {
 
   document.getElementById("contactHeader").innerHTML = `
     <p class="section-eyebrow">${esc(c.eyebrow)}</p>
-    <h2 class="section-title">${esc(c.title)} - ${esc(c.titleBranch)}</h2>
+    <h2 class="section-title">${esc(c.title)} <span class="accent">— ${esc(c.titleBranch)}</span></h2>
   `;
 
   document.getElementById("contactInner").innerHTML = `
     <div class="contact-details">
       <div class="contact-card">
         <div class="contact-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div>
           <h4>Address</h4>
@@ -379,7 +385,7 @@ function renderContact() {
       </div>
       <div class="contact-card">
         <div class="contact-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
         <div>
           <h4>Phone / WhatsApp</h4>
@@ -388,7 +394,7 @@ function renderContact() {
       </div>
       <div class="contact-card">
         <div class="contact-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
         <div>
           <h4>Email</h4>
@@ -397,20 +403,17 @@ function renderContact() {
       </div>
       <div class="contact-card">
         <div class="contact-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00B4D8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div>
-          <h4>Clinic Hours</h4>
+          <h4>Studio Hours</h4>
           <p>${contactHours}</p>
         </div>
       </div>
       <a href="${waHref()}" target="_blank" class="btn btn-whatsapp contact-wa">${waSvg(18)} ${esc(c.waButton)}</a>
     </div>
     <div class="map-wrap">
-      <div class="map-placeholder">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="30" fill="#E8F4FD"/><path d="M30 10a14 14 0 0 1 14 14c0 10-14 26-14 26S16 34 16 24A14 14 0 0 1 30 10z" fill="#00B4D8" opacity="0.6"/><circle cx="30" cy="24" r="5" fill="white"/></svg>
-        <iframe src="${esc(D.contact.mapEmbed)}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+      <iframe src="${esc(D.contact.mapEmbed)}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   `;
 }
@@ -422,10 +425,13 @@ function renderFooter() {
   const w = D.whatsapp;
   const wa = waHref();
 
+  const isAcademyEnabled = D.academic && D.academic.enabled !== false;
+  const filteredQuickLinks = f.quickLinks.filter(l => isAcademyEnabled || l.href !== "#academic");
+
   document.getElementById("footerInner").innerHTML = `
     <div class="footer-brand">
       <a href="#" class="logo logo-light">
-        <div class="logo-icon">${logoSvg(28)}</div>
+        <div class="logo-icon">${brandSvg(28)}</div>
         <div class="logo-text">
           <span class="logo-name">${esc(s.name)}</span>
           <span class="logo-sub">${esc(s.tagline)}</span>
@@ -435,7 +441,10 @@ function renderFooter() {
       <div class="footer-social">
         ${f.social.map(soc => {
           const href = soc.href === "whatsapp" ? wa : soc.href;
-          return `<a href="${esc(href)}" aria-label="${esc(soc.label)}" class="social-link"${soc.href === "whatsapp" ? ' target="_blank"' : ""}>${soc.icon}</a>`;
+          if (soc.href === "#") {
+            return `<a href="javascript:void(0)" aria-label="${esc(soc.label)} (coming soon)" title="${esc(soc.label)} — link coming soon" class="social-link social-placeholder" role="button">${soc.icon}</a>`;
+          }
+          return `<a href="${esc(href)}" aria-label="${esc(soc.label)}" class="social-link"${soc.href === "whatsapp" || soc.href.startsWith("http") ? ' target="_blank"' : ""}>${soc.icon}</a>`;
         }).join("")}
       </div>
     </div>
@@ -448,7 +457,7 @@ function renderFooter() {
     <div class="footer-links">
       <h4>Quick Links</h4>
       <ul>
-        ${f.quickLinks.map(l => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join("")}
+        ${filteredQuickLinks.map(l => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`).join("")}
       </ul>
     </div>
     <div class="footer-contact">
@@ -481,10 +490,9 @@ function renderAll() {
   renderAbout();
   renderServices();
   renderWhy();
-  renderAcademic();
+  renderAcademy();
   renderDoctor();
   renderTestimonials();
-  renderExperience();
   renderAppointment();
   renderContact();
   renderFooter();
@@ -492,28 +500,33 @@ function renderAll() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   BEHAVIOURS (run after render)
+   BEHAVIOURS
    ═══════════════════════════════════════════════════════ */
-
 function initBehaviours() {
   const header = document.getElementById("header");
 
-  // ── HEADER SCROLL EFFECT ──
+  /* ── SCROLL PROGRESS BAR ── */
+  const progressBar = document.getElementById("scrollProgress");
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 20) header.classList.add("scrolled");
-    else header.classList.remove("scrolled");
+    if (!progressBar) return;
+    const scrollTop  = window.scrollY;
+    const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = `${Math.min(100, (scrollTop / docHeight) * 100)}%`;
   }, { passive: true });
 
-  // ── HAMBURGER MENU ──
+  /* ── HEADER SCROLL EFFECT ── */
+  window.addEventListener("scroll", () => {
+    header.classList.toggle("scrolled", window.scrollY > 20);
+  }, { passive: true });
+
+  /* ── HAMBURGER ── */
   const hamburger = document.getElementById("hamburger");
   const nav = document.getElementById("nav");
-
   hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     nav.classList.toggle("open");
     document.body.style.overflow = nav.classList.contains("open") ? "hidden" : "";
   });
-
   document.querySelectorAll(".nav-link, .nav-cta-btn").forEach(link => {
     link.addEventListener("click", () => {
       hamburger.classList.remove("active");
@@ -521,8 +534,7 @@ function initBehaviours() {
       document.body.style.overflow = "";
     });
   });
-
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     if (nav.classList.contains("open") && !nav.contains(e.target) && !hamburger.contains(e.target)) {
       hamburger.classList.remove("active");
       nav.classList.remove("open");
@@ -530,142 +542,195 @@ function initBehaviours() {
     }
   });
 
-  // ── ACTIVE NAV LINK ON SCROLL ──
-  const sections = document.querySelectorAll("section[id]");
+  /* ── ACTIVE NAV LINK ── */
+  const sections = Array.from(document.querySelectorAll("section[id]")).filter(s => s.style.display !== "none");
   const navLinks = document.querySelectorAll(".nav-link");
-
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute("id");
-        navLinks.forEach(link => link.classList.toggle("active-link", link.getAttribute("href") === `#${id}`));
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => l.classList.toggle("active-link", l.getAttribute("href") === `#${id}`));
       }
     });
   }, { rootMargin: "-40% 0px -55% 0px" });
-  sections.forEach(sec => sectionObserver.observe(sec));
+  sections.forEach(s => secObs.observe(s));
 
-  // ── SCROLL REVEAL ──
-  const reveals = document.querySelectorAll(
-    ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item, .academic-card, .academic-stat"
-  );
-  reveals.forEach(el => el.classList.add("reveal"));
-
-  const revealObserver = new IntersectionObserver((entries) => {
+  /* ── SCROLL REVEAL — pre-assign stagger index (O(1)) ── */
+  const reveals = Array.from(document.querySelectorAll(
+    ".service-card, .why-card, .testi-card, .about-feat, .contact-card, .experience-card, .appt-feat, .cred-item, .course-card, .academy-feat, .academy-stat"
+  )).filter(el => {
+    const parentSec = el.closest("section");
+    return !parentSec || parentSec.style.display !== "none";
+  });
+  reveals.forEach((el, idx) => {
+    el.classList.add("reveal");
+    el.dataset.revealIndex = idx % 6;
+  });
+  const ro = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add("visible"), 60 * (Array.from(reveals).indexOf(entry.target) % 6));
-        revealObserver.unobserve(entry.target);
+        const delay = parseInt(entry.target.dataset.revealIndex || 0) * 80;
+        setTimeout(() => { entry.target.classList.add("visible"); ro.unobserve(entry.target); }, delay);
       }
     });
   }, { threshold: 0.12 });
-  reveals.forEach(el => revealObserver.observe(el));
+  reveals.forEach(el => ro.observe(el));
 
-  // ── SET MIN DATE FOR APPOINTMENT FORM ──
+  /* ── SECTION HEADER REVEAL ── */
+  document.querySelectorAll(".section-header, .about-text-col, .appt-info, #contactHeader, .academy-header").forEach(el => {
+    const parentSec = el.closest("section");
+    if (parentSec && parentSec.style.display === "none") return;
+    el.classList.add("reveal-header");
+    new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("header-visible"); } });
+    }, { threshold: 0.2 }).observe(el);
+  });
+
+  /* ── SET MIN DATE ── */
   const dateInput = document.getElementById("preferredDate");
   if (dateInput) {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    dateInput.min = `${yyyy}-${mm}-${dd}`;
+    const t = new Date();
+    dateInput.min = `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,"0")}-${String(t.getDate()).padStart(2,"0")}`;
   }
 
-  // ── SMOOTH SCROLL FOR ANCHOR LINKS ──
+  /* ── SMOOTH SCROLL ── */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", (e) => {
-      const targetId = anchor.getAttribute("href");
-      if (targetId === "#") return;
-      const target = document.querySelector(targetId);
+    anchor.addEventListener("click", e => {
+      const id = anchor.getAttribute("href");
+      if (id === "#") return;
+      const target = document.querySelector(id);
       if (target) {
         e.preventDefault();
-        const headerH = header ? header.offsetHeight : 72;
-        const top = target.getBoundingClientRect().top + window.scrollY - headerH;
-        window.scrollTo({ top, behavior: "smooth" });
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - (header?.offsetHeight || 72), behavior: "smooth" });
       }
     });
   });
 
-  // ── HIDE/SHOW FLOATING WA BUTTON ──
+  /* ── FLOATING WA HIDE/SHOW ── */
   const waFloat = document.getElementById("whatsappFloat");
-  let lastScrollY = 0;
+  let lastY = 0;
   window.addEventListener("scroll", () => {
     if (!waFloat) return;
-    const current = window.scrollY;
-    if (current > lastScrollY + 60) {
-      waFloat.style.transform = "translateY(120%)";
-      waFloat.style.opacity = "0";
-    } else {
-      waFloat.style.transform = "";
-      waFloat.style.opacity = "";
-    }
-    lastScrollY = current;
+    const y = window.scrollY;
+    waFloat.style.transform = y > lastY + 60 ? "translateY(120%)" : "";
+    waFloat.style.opacity   = y > lastY + 60 ? "0" : "";
+    lastY = y;
   }, { passive: true });
 
-  // ── COUNTER ANIMATION ──
+  /* ── COUNTER ANIMATION ── */
   function animateCounter(el, target, suffix = "") {
-    let start = 0;
-    const duration = 1800;
-    const step = 16;
-    const increment = target / (duration / step);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) { start = target; clearInterval(timer); }
-      el.textContent = Math.floor(start) + suffix;
-    }, step);
+    let v = 0;
+    const step = target / (1800 / 16);
+    const t = setInterval(() => {
+      v += step;
+      if (v >= target) { v = target; clearInterval(t); }
+      el.textContent = Math.floor(v) + suffix;
+    }, 16);
   }
-
-  const numbers = document.querySelectorAll(".trust-item strong, .cred-item strong");
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.dataset.counted) {
-        entry.target.dataset.counted = "true";
-        const raw = entry.target.textContent;
-        const num = parseInt(raw.replace(/\D/g, ""), 10);
-        const suffix = raw.replace(/[\d]/g, "");
-        if (!isNaN(num)) animateCounter(entry.target, num, suffix);
+  new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.counted) {
+        e.target.dataset.counted = "true";
+        const raw = e.target.textContent;
+        const num = parseInt(raw.replace(/\D/g,""), 10);
+        if (!isNaN(num)) animateCounter(e.target, num, raw.replace(/[\d]/g,""));
       }
     });
-  }, { threshold: 0.5 });
-  numbers.forEach(el => counterObserver.observe(el));
+  }, { threshold: 0.5 }).observe && (() => {
+    const co = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !e.target.dataset.counted) {
+          e.target.dataset.counted = "true";
+          const raw = e.target.textContent;
+          const num = parseInt(raw.replace(/\D/g,""), 10);
+          if (!isNaN(num)) animateCounter(e.target, num, raw.replace(/[\d]/g,""));
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll(".trust-item strong, .cred-item strong, .academy-stat strong").forEach(el => co.observe(el));
+  })();
 
-  console.log(`%c✨ ${D.site.name} Website Loaded`, "color:#00B4D8;font-size:14px;font-weight:bold");
-  console.log("%cEdit data.json to update all clinic details.", "color:#6B7E96;font-size:12px");
+  /* ── CARD TILT EFFECT ── */
+  document.querySelectorAll("[data-tilt]").forEach(card => {
+    card.addEventListener("mousemove", e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-8px)`;
+    });
+    card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+  });
+
+  /* ── TYPEWRITER ON HERO ACCENT ── */
+  const tw = document.getElementById("heroTypewriter");
+  if (tw) {
+    const full = tw.textContent;
+    tw.textContent = "";
+    tw.style.borderRight = "3px solid var(--rose)";
+    let i = 0;
+    const type = () => {
+      if (i <= full.length) { tw.textContent = full.slice(0, i++); setTimeout(type, 80); }
+      else { setTimeout(() => { tw.style.borderRight = "none"; }, 1200); }
+    };
+    setTimeout(type, 700);
+  }
+
+  /* ── PROCESS STEP STAGGER ── */
+  const processSteps = document.querySelectorAll(".process-step");
+  processSteps.forEach((el, i) => {
+    el.style.cssText = `opacity:0;transform:translateX(-20px);transition:opacity 0.5s ease ${i*120}ms,transform 0.5s ease ${i*120}ms`;
+  });
+  const processCard = document.querySelector(".care-process-card");
+  if (processCard) {
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          processSteps.forEach(s => { s.style.opacity = "1"; s.style.transform = "translateX(0)"; });
+        }
+      });
+    }, { threshold: 0.3 }).observe(processCard);
+  }
+
+  /* ── FORM FOCUS ── */
+  document.querySelectorAll(".form-group input,.form-group select,.form-group textarea").forEach(inp => {
+    inp.addEventListener("focus", () => inp.parentElement.classList.add("field-focused"));
+    inp.addEventListener("blur",  () => inp.parentElement.classList.remove("field-focused"));
+  });
+
+  console.log(`%c✨ ${D.site.name} Loaded`, "color:#C084FC;font-size:14px;font-weight:bold");
 }
 
 /* ── WHATSAPP BOOKING ─────────────────────────────────── */
 function bookOnWhatsApp() {
-  const name = document.getElementById("patientName").value.trim();
-  const phone = document.getElementById("patientPhone").value.trim();
-  const date = document.getElementById("preferredDate").value;
-  const time = document.getElementById("preferredTime").value;
+  const name      = document.getElementById("patientName").value.trim();
+  const phone     = document.getElementById("patientPhone").value.trim();
+  const date      = document.getElementById("preferredDate").value;
+  const time      = document.getElementById("preferredTime").value;
   const treatment = document.getElementById("treatment").value;
-  const message = document.getElementById("message").value.trim();
+  const message   = document.getElementById("message").value.trim();
 
-  if (!name) { showFormError("patientName", "Please enter your full name."); return; }
-  if (!phone) { showFormError("patientPhone", "Please enter your mobile number."); return; }
-  if (!isValidPhone(phone)) { showFormError("patientPhone", "Please enter a valid phone number."); return; }
-  if (!date) { showFormError("preferredDate", "Please select a preferred date."); return; }
-  if (!time) { showFormError("preferredTime", "Please select a preferred time."); return; }
-  if (!treatment) { showFormError("treatment", "Please select the treatment required."); return; }
+  if (!name)                        { showFormError("patientName",   "Please enter your full name.");         return; }
+  if (!phone)                       { showFormError("patientPhone",  "Please enter your mobile number.");     return; }
+  if (!isValidPhone(phone))         { showFormError("patientPhone",  "Please enter a valid phone number.");   return; }
+  if (!date)                        { showFormError("preferredDate", "Please select a preferred date.");      return; }
+  if (!time)                        { showFormError("preferredTime", "Please select a preferred time.");      return; }
+  if (!treatment)                   { showFormError("treatment",     "Please select the service required.");  return; }
 
-  const displayDate = new Date(date).toLocaleDateString("en-IN", {
-    weekday: "long", year: "numeric", month: "long", day: "numeric"
-  });
+  const displayDate = new Date(date).toLocaleDateString("en-IN", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
 
+  // BUG FIX: filter(Boolean) removes empty strings
   const waMessage = [
-    `✨ *Appointment Request — ${D.site.name}*`,
+    `✨ *Booking Request — ${D.site.name}*`,
     ``,
     `👤 *Name:* ${name}`,
-    `📱 *Mobile Number:* ${phone}`,
-    `📅 *Preferred Date:* ${displayDate}`,
-    `🕐 *Preferred Time:* ${time}`,
-    `💆♀️ *Service / Course Required:* ${treatment}`,
-    message ? `💬 *Message / Concern:* ${message}` : ``,
+    `📱 *Mobile:* ${phone}`,
+    `📅 *Date:* ${displayDate}`,
+    `🕐 *Time:* ${time}`,
+    `💆 *Service / Course:* ${treatment}`,
+    message ? `💬 *Concern / Message:* ${message}` : ``,
     ``,
-    `_Sent from the Wenni website booking form._`
-  ].filter(line => line !== undefined).join("\n");
-
-  const waURL = `https://wa.me/${D.whatsapp.number}?text=${encodeURIComponent(waMessage)}`;
+    `_Sent from the academy website booking form._`
+  ].filter(Boolean).join("\n");
 
   const btn = document.getElementById("submitBtn");
   btn.textContent = "Opening WhatsApp...";
@@ -673,16 +738,12 @@ function bookOnWhatsApp() {
   btn.style.pointerEvents = "none";
 
   setTimeout(() => {
-    window.open(waURL, "_blank");
-    btn.innerHTML = `${waSvg(20)} ✅ Message Sent!`;
+    window.open(`https://wa.me/${D.whatsapp.number}?text=${encodeURIComponent(waMessage)}`, "_blank");
+    btn.innerHTML = `${waSvg(20)} ✅ Sent!`;
     btn.style.background = "#16a34a";
     btn.style.opacity = "1";
     btn.style.pointerEvents = "auto";
-
-    setTimeout(() => {
-      btn.innerHTML = `${waSvg(20)} ${D.appointment.submitLabel}`;
-      btn.style.background = "";
-    }, 3000);
+    setTimeout(() => { btn.innerHTML = `${waSvg(20)} ${D.appointment.submitLabel}`; btn.style.background = ""; }, 3000);
   }, 400);
 }
 
@@ -690,24 +751,16 @@ function showFormError(fieldId, message) {
   const field = document.getElementById(fieldId);
   if (!field) return;
   clearFormError(field);
-
   field.style.borderColor = "#EF4444";
   field.style.boxShadow = "0 0 0 3px rgba(239,68,68,0.1)";
-
-  const error = document.createElement("p");
-  error.className = "form-error";
-  error.style.cssText = `color:#EF4444;font-size:12px;margin-top:5px;font-weight:500;display:flex;align-items:center;gap:4px;`;
-  error.innerHTML = `⚠️ ${message}`;
-
-  field.parentNode.appendChild(error);
+  const err = document.createElement("p");
+  err.className = "form-error";
+  err.style.cssText = "color:#EF4444;font-size:12px;margin-top:5px;font-weight:500;";
+  err.innerHTML = `⚠️ ${message}`;
+  field.parentNode.appendChild(err);
   field.focus();
-  field.scrollIntoView({ behavior: "smooth", block: "center" });
-
-  const clear = () => {
-    clearFormError(field);
-    field.removeEventListener("input", clear);
-    field.removeEventListener("change", clear);
-  };
+  field.scrollIntoView({ behavior:"smooth", block:"center" });
+  const clear = () => { clearFormError(field); field.removeEventListener("input", clear); field.removeEventListener("change", clear); };
   field.addEventListener("input", clear);
   field.addEventListener("change", clear);
 }
@@ -715,13 +768,12 @@ function showFormError(fieldId, message) {
 function clearFormError(field) {
   field.style.borderColor = "";
   field.style.boxShadow = "";
-  const existingError = field.parentNode.querySelector(".form-error");
-  if (existingError) existingError.remove();
+  const e = field.parentNode.querySelector(".form-error");
+  if (e) e.remove();
 }
 
 function isValidPhone(phone) {
-  const cleaned = phone.replace(/[\s\-\+\(\)]/g, "");
-  return /^\d{7,15}$/.test(cleaned);
+  return /^\d{7,15}$/.test(phone.replace(/[\s\-\+\(\)]/g,""));
 }
 
 /* ── BOOT ─────────────────────────────────────────────── */
@@ -731,9 +783,9 @@ function isValidPhone(phone) {
     D = await res.json();
     renderAll();
     initBehaviours();
-  } catch (err) {
+  } catch(err) {
     console.error("Failed to load data.json", err);
     document.body.insertAdjacentHTML("afterbegin",
-      `<div style="background:#EF4444;color:#fff;padding:12px 24px;font-family:sans-serif;text-align:center;">Failed to load data.json — check the file exists and is valid JSON.</div>`);
+      `<div style="background:#7C3AED;color:#fff;padding:12px 24px;font-family:sans-serif;text-align:center;">Failed to load data.json — check the file exists and is valid JSON.</div>`);
   }
 })();

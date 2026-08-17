@@ -100,28 +100,28 @@
       "name": "HydraFacial & Deep Cleansing",
       "desc": "Advanced hydradermabrasion that cleanses, exfoliates and hydrates in one soothing session.",
       "color": "#F4A642",
-      "image": "images/svc-peel.jpg",
+      "image": "images/svc-microderm.jpg",
       "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 8a4 4 0 0 1 4 4c0 5-4 9-4 9s-4-4-4-9a4 4 0 0 1 4-4z\"/><path d=\"M12 2v3M5 5l2 2M19 5l-2 2\"/></svg>"
     },
     {
       "name": "Chemical Peels",
       "desc": "Safe, medical-grade peels to renew skin texture, fade pigmentation and reveal fresh skin.",
       "color": "#22C55E",
-      "image": "images/svc-acne.jpg",
+      "image": "images/svc-peel.jpg",
       "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z\"/><path d=\"M19 15.5l.8 2.4 2.4.8-2.4.8-.8 2.4-.8-2.4-2.4-.8 2.4-.8z\"/></svg>"
     },
     {
       "name": "Acne & Pigmentation Treatment",
       "desc": "Targeted therapies to clear acne, reduce scars and even out skin tone safely.",
       "color": "#8B5CF6",
-      "image": "images/svc-antiaging.jpg",
+      "image": "images/svc-acne.jpg",
       "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41\"/></svg>"
     },
     {
       "name": "Anti-Aging & Glow Rituals",
       "desc": "Collagen-boosting, firming treatments that restore radiance and smooth fine lines.",
       "color": "#EC4899",
-      "image": "images/svc-body.jpg",
+      "image": "images/svc-antiaging-new.jpg",
       "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8L19 13M15 9h.01M17.8 6.2L19 5M3 21l9-9M12.2 6.2L11 5\"/></svg>"
     },
     {
@@ -142,7 +142,7 @@
       "name": "Body Polish & Spa Therapy",
       "desc": "Full-body exfoliation and nourishing spa rituals that soften, brighten and relax.",
       "color": "#06B6D4",
-      "image": "images/svc-microderm.jpg",
+      "image": "images/svc-body.jpg",
       "icon": "<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 2a10 10 0 1 0 10 10H12z\"/><path d=\"M12 2v10l7.5 7.5\"/></svg>"
     }
   ],
@@ -155,6 +155,7 @@
     { "num": "06", "title": "Flexible Timings", "desc": "Morning, evening and weekend slots that fit around your work and college schedule." }
   ],
   "academic": {
+    "enabled": false,
     "eyebrow": "Wenni Skin Care Academy",
     "title": "Learn The Art Of",
     "titleAccent": "Professional Skincare",
